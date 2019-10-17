@@ -1,5 +1,9 @@
 project('dcore', 'd')
+# WIP
 executable('mkdir', 'src/mkdir.d')
+executable('cksum', 'src/cksum.d')
+
+# Done(-ish)
 executable('yes', 'src/yes.d')
 executable('tee', 'src/tee.d')
 executable('tty', 'src/tty.d')
@@ -7,3 +11,9 @@ executable('echo', 'src/echo.d')
 executable('uname', 'src/uname.d')
 # Somehow we should link this to true and false on install.
 executable('return', 'src/return.d')
+executable('hostid', 'src/hostid.d')
+executable('unlink', 'src/unlink.d')
+executable('sync', 'src/sync.d')
+executable('basename', 'src/basename.d')
+executable('dirname', 'src/dirname.d')
+executable('tsort', 'src/tsort.d')

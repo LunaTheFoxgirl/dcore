@@ -17,15 +17,24 @@ Fun.
 * tee
 * tty
 * echo
-* uname
+* uname (this doesn't match Linux, but matches FreeBSD's implementation)
+* hostid
+* true / false (i called it "return" and it will work if you name it true, or false).
+* sync
+* basename
+* tsort
+* dirname
 
 ## WIP ##
 
 * mkdir
+* cksum (doesn't work - algorithm isn't standard and implementation isn't correct).
 
 ## Todo ##
 
-* Generic command boilerplate for --help, --verbose, --version on all commands.
+* Generic core.sys.posix style wrappers for stdc that aren't already in there.
+* Generic command boilerplate for --help, --verbose, --version on all commands. Also provide a way to specify filename(s) as part of the command line spec.
+* Generic IO / logging / error boilerplate
 * ls / vdir / dir
 * cp
 * mv
@@ -47,11 +56,8 @@ Fun.
 * cut
 * uniq
 * wc
-* basename
-* dirname
 * seq
 * sleep
-* true / false
 * test
 * md5sum / shasum / etc.
 * base64 / base32
@@ -64,44 +70,39 @@ Fun.
 * pr
 * split
 * hostname
-date
-pwd
-su
-nice
-who
-id
-groups
-whoami
-env
-install
-link
-mkfifo
-mknod
-shred
-sync
-unlink
-chgrp
-expr
-factor
-hostid
-logname
-nohup
-patchk
-pinky
-printenv
-printf
-stty
-users
-cksum
-csplit
-nl
-od
-ptx
-sum
-tac
-tsort
-
-... and anything else
+* date
+* pwd
+* su
+* nice
+* who
+* id
+* groups
+* whoami
+* env
+* install
+* link
+* mkfifo
+* mknod
+* shred
+* unlink
+* chgrp
+* expr
+* factor
+* logname
+* nohup
+* patch
+* pinky
+* printenv
+* printf
+* stty
+* users
+* csplit
+* nl
+* od
+* ptx
+* sum
+* tac
+* ... and anything else, see also: https://en.wikipedia.org/wiki/List_of_Unix_commands
 
 # Maybe ? #
 
