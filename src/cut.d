@@ -2,7 +2,7 @@
   cut: Print specified portions of input lines.
 
   Written by: chaomodus
-  2019-10-17T21:01:54
+  2019-10-19T00:42:18
 
   Extension from standard:
     We accept an arbitrary number of ranges as if they are joined with ,

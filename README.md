@@ -24,6 +24,8 @@ Fun.
 * basename
 * tsort
 * dirname
+* cut (extends functionality in useful ways that are substantially better than gnu version).
+
 
 ## WIP ##
 
@@ -32,7 +34,7 @@ Fun.
 
 ## Todo ##
 
-* Generic core.sys.posix style wrappers for stdc that aren't already in there.
+* Generic core.sys.posix style wrappers for stdc that aren't already in there that we use.
 * Generic command boilerplate for --help, --verbose, --version on all commands. Also provide a way to specify filename(s) as part of the command line spec.
 * Generic IO / logging / error boilerplate
 * ls / vdir / dir
@@ -53,7 +55,6 @@ Fun.
 * tail
 * sort
 * tr
-* cut
 * uniq
 * wc
 * seq
