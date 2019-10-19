@@ -3,6 +3,9 @@
 
   Written by: chaomodus
   2019-10-15T21:08:28
+
+  This is implemenetd with the depth-first algorithm, see:
+  https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
 */
 
 import std.stdio;
@@ -63,6 +66,10 @@ void visit(string nodename) {
 
 int main(string[] args) {
   auto input = stdin;
+  if ((args.length > 1) && (args[1] != "-")) {
+    input = File(args[1], "r");
+  }
+
   string tokena;
   while (!input.eof) {
     string line = input.readln().strip();
