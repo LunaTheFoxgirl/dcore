@@ -1,0 +1,61 @@
+#!/usr/bin/deesh
+# Comments leading with #
+
+%{} # execute block, i/o redirected to output of block (return value)
+${} # execute block, i/o not redirected unless explicit
+
+$test = "foo bar baz"
+# tokens of a string are accessed with $var.#
+echo $test.0  # echos foo
+# $var.@ is the number of tokens
+echo $test.@  # echos 3
+
+$hello() = { # adding () to a variable name makes it store a closure for calling later.
+	 echo "Hello "$_.0" !" # arguments to the closure are numbered from 0, $_ is the arguments passed.
+} # assigning a block does not execute the code, just saves the closure as an executable
+
+$hello() # non-assignment of a variable with () causes closure to be executed, io is not redirected
+$foo=%hello(world) # execute the closure, but redirect the output to return value
+
+# keywords
+# foreach takes two arguments, a variable name and a value that is tokenized and iterated, a block is provided
+# after the () which is executed for each item in the input
+foreach($token $foo) {
+	      echo $token;
+}
+
+# if takes one argument, which is executed. the return value determines if the block is executed
+if([ $foo.0 == "Hello" ]) {
+     echo "It is hello."
+} else { # else happens if the if didn't happen
+     echo "It is not hello."
+}
+
+$item = ""
+# Until takes one argument, which is executed. the return value determines if the block is executed,
+# which it is done repeatedly until the test is non-zero.
+until ([ $item == "world" ]) %{
+      $item=%pop($foo);
+}
+
+
+# redirecting uses >
+echo "yo" > testfile
+cat < testfile
+
+# to redirect stderr, we use the secial redirect ^>, to direct both, ^>>
+echo --help ^>> output
+# to send just stderr
+echo --help ^> output
+
+# multiple redirects can be specified
+foobaz > output ^> errors
+
+# piping to another executable uses @
+echo "yo" @ cat
+
+# directing stderr and stdout to stdin on the command
+echo --help ^@@ cat
+
+# pipes can be combined
+foobaz > output ^@ tee errors

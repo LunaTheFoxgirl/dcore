@@ -28,7 +28,7 @@ enum modeEnum {
 };
 
 class NullableException: Exception {
-      this(string msg, string file = __FILE__, size_t line = __LINE__) {
+      this(string msg, string file = __FILE__, size_t line = __LINE__){
         super(msg, file, line);
     }
 };
@@ -79,13 +79,12 @@ struct RangeSpan {
   Nullable!uint end;
 };
 
-
 // GLOBALS
-RangeSpan[] output_range;
-Nullable!string joiner;
 auto range_regex = ctRegex!(`^(?P<start>\d+)?(?P<hy>-)?(?P<end>\d+)?$`);
 auto whitespace_regex = ctRegex!(`[\t ]+`);
 modeEnum mode;
+RangeSpan[] output_range;
+Nullable!string joiner;
 
 RangeSpan[] process_range(string range) {
   string[] ranges = range.split(",");

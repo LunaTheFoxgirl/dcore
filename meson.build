@@ -1,7 +1,9 @@
 project('dcore', 'd')
 # WIP
+executable('deesh', 'src/deesh.d')
 executable('mkdir', 'src/mkdir.d')
 executable('cksum', 'src/cksum.d')
+executable('wc', 'src/wc.d')
 
 # Done(-ish)
 executable('yes', 'src/yes.d')
@@ -18,3 +20,4 @@ executable('basename', 'src/basename.d')
 executable('dirname', 'src/dirname.d')
 executable('tsort', 'src/tsort.d')
 executable('cut', 'src/cut.d')
+executable('seq', 'src/seq.d')

@@ -25,12 +25,15 @@ Fun.
 * tsort
 * dirname
 * cut (extends functionality in useful ways that are substantially better than gnu version).
-
+* unlink
+* seq
 
 ## WIP ##
 
 * mkdir
 * cksum (doesn't work - algorithm isn't standard and implementation isn't correct).
+* wc (-c and -l work, of course, but the -L and -w counts are different from GNU version for unknown reasons).
+* deesh (this is a big ol project in itself)
 
 ## Todo ##
 
@@ -56,7 +59,6 @@ Fun.
 * sort
 * tr
 * uniq
-* wc
 * seq
 * sleep
 * test
@@ -85,7 +87,6 @@ Fun.
 * mkfifo
 * mknod
 * shred
-* unlink
 * chgrp
 * expr
 * factor
