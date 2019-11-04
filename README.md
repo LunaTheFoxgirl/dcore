@@ -27,6 +27,7 @@ Fun.
 * cut (extends functionality in useful ways that are substantially better than gnu version).
 * unlink
 * seq
+* sleep
 
 ## WIP ##
 
@@ -59,8 +60,6 @@ Fun.
 * sort
 * tr
 * uniq
-* seq
-* sleep
 * test
 * md5sum / shasum / etc.
 * base64 / base32
