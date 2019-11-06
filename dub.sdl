@@ -1,7 +1,8 @@
 name "dcore"
-authors "chaomodus"
+authors "Cas Rusnov"
 description "Reimplemention of coreutils in D"
-copyright "Copyright © 2019, chaomodus"
+license "MIT"
+copyright "Copyright © 2019, Cas Rusnov and contributors"
 targetType "none"
 targetPath "out/"
 
