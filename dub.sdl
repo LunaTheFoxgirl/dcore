@@ -25,6 +25,7 @@ dependency "dcore:tsort" version="*"
 dependency "dcore:cut" version="*"
 dependency "dcore:seq" version="*"
 dependency "dcore:sleep" version="*"
+dependency "dcore:factor" version="*"
 
 // WIP
 subPackage {
@@ -178,4 +179,12 @@ subPackage {
     targetPath "out/"
     targetType "executable"
     sourcePaths "src/sleep"
+}
+
+subPackage {
+    name "factor"
+    targetName "factor"
+    targetPath "out/"
+    targetType "executable"
+    sourcePaths "src/factor"
 }
