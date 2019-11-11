@@ -51,12 +51,13 @@ int main(string[] args) {
       }
 
       if (idx != args.length - 2) {
-        stdout.writeln(" ");
+        stdout.write(" ");
       }
     }
   } else {
     perror(null);
     return 1;
   }
+  stdout.write("\n");
   return 0;
 }
