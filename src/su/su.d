@@ -87,7 +87,6 @@ int main(string[] args) {
         "f|fast", "Pass -f to the shell (for csh or tcsh)", &fastStartup,
         "p|preserve-environment", "do not reset environment variables", &preserveEnvironment,
         "s|shell", "run specified shell if /etc/shells allows it", &useShell,
-        "h|help", "Show help text", &showHelp,
         "v|version", "show version info", &showVersionInfo);
 
         if (helpInfo.helpWanted || showHelp) {
@@ -283,6 +282,7 @@ passwd getpasswd(string user) {
     // In both case of success and failure, remember to close the entry
     scope(failure) endpwent();
     passwd* pw = getpwnam(user.toStringz);
+    endpwent();
 
     /**
         Convert the contents to D strings
@@ -294,13 +294,14 @@ passwd getpasswd(string user) {
     string dir = pw is null ? null : cast(string)pw.pw_dir.fromStringz.idup;
     string pass = pw is null ? null : cast(string)pw.pw_passwd.fromStringz.idup;
     string shell = pw is null ? null : cast(string)pw.pw_shell.fromStringz.idup;
-    gid_t gid = pw.pw_gid;
-    uid_t uid = pw.pw_uid;
-    endpwent();
 
     // Make sure that the user exists and is valid
     if (pw is null || name.length == 0 || dir.length == 0 || pass is null)
         throw new Exception("user %s does not exist".format(user));
+
+    // We're sure that the user exists; get its PID and GID
+    gid_t gid = pw.pw_gid;
+    uid_t uid = pw.pw_uid;
 
     /*
         Make a copy of the password info and return that; 
