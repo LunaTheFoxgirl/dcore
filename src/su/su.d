@@ -203,13 +203,11 @@ bool verifyPassword(ref passwd expected) {
     Executes a shell
 */
 void runShell(string shell, string command) {
-    if (command.length != 0) {
-        auto pid = spawnShell(command);
-        wait(pid);
-    } else {
-        auto pid = spawnShell(shell);
-        wait(pid);
-    }
+    string cmdStr = command.length != 0 ? command : shell;
+    
+    if (fastStartup && command.length == 0) cmdStr ~= " -f";
+    auto pid = spawnShell(cmdStr);
+    wait(pid);
 }
 
 /**
