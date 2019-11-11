@@ -1,7 +1,8 @@
 name "dcore"
-authors "chaomodus"
+authors "Cas Rusnov"
 description "Reimplemention of coreutils in D"
-copyright "Copyright © 2019, chaomodus"
+license "MIT"
+copyright "Copyright © 2019, Cas Rusnov and contributors"
 targetType "none"
 targetPath "out/"
 
@@ -25,6 +26,7 @@ dependency "dcore:cut" version="*"
 dependency "dcore:seq" version="*"
 dependency "dcore:sleep" version="*"
 dependency "dcore:su" version="*"
+dependency "dcore:factor" version="*"
 
 // Utility libraries
 subPackage {
@@ -33,7 +35,6 @@ subPackage {
     targetType "library"
     sourcePaths "src/shadow"
 }
-
 
 // WIP
 subPackage {
@@ -211,4 +212,12 @@ subPackage {
     targetPath "out/"
     targetType "executable"
     sourcePaths "src/sleep"
+}
+
+subPackage {
+    name "factor"
+    targetName "factor"
+    targetPath "out/"
+    targetType "executable"
+    sourcePaths "src/factor"
 }
