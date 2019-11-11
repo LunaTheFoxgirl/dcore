@@ -41,8 +41,8 @@ enum DEFAULT_SHELL = "deesh";
     Help header format string
 */
 enum SU_HEADER_FMT = "Super User
-Allows you to run an application as a different user (by default root)
-";
+Allows you to run an application as a different user (by default %s)
+".format(DEFAULT_USER);
 
 /**
     Version text
