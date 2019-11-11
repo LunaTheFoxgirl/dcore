@@ -1,3 +1,10 @@
+/*
+  su: open shell as an other user (generally root)
+
+  Written by: Clipsey
+  2019-11-11T14:15:00
+*/
+
 import core.sys.posix.pwd;
 import core.sys.posix.termios;
 import core.stdc.errno;
