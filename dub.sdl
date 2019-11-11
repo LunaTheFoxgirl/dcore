@@ -25,6 +25,7 @@ dependency "dcore:cut" version="*"
 dependency "dcore:seq" version="*"
 dependency "dcore:sleep" version="*"
 dependency "dcore:su" version="*"
+dependency "dcore:pwd" version="*"
 
 // Utility libraries
 subPackage {
@@ -93,6 +94,14 @@ subPackage {
 
 
 // Done(-ish)
+subPackage {
+    name "pwd"
+    targetName "pwd"
+    targetPath "out/"
+    targetType "executable"
+    sourcePaths "src/pwd"
+}
+
 subPackage {
     name "yes"
     targetName "yes"
