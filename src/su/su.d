@@ -35,6 +35,21 @@ version(USE_SHADOW) {
 }
 
 /**
+    The default PATH for normal user login
+*/
+enum DEFAULT_LOGIN_PATH = ":/user/ucb:/bin:/user/bin";
+
+/**
+    The default PATH for root user login
+*/
+enum DEFAULT_ROOT_LOGIN_PATH = "/usr/ucb:/bin:/usr/bin:/etc";
+
+/**
+    The default value that gets returned in the case that /etc/shells does not exist.
+*/
+enum DEFAULT_NO_SHELLS_RET_VAL = true;
+
+/**
     Allows setting the default user for su
 */
 enum DEFAULT_USER = "root";
@@ -76,7 +91,7 @@ bool loginShell;
 string command;
 
 /// The shell to use
-string useShell = DEFAULT_SHELL;
+string useShell;
 
 /// Wether to show version info
 bool showVersionInfo;
@@ -114,6 +129,21 @@ int main(string[] args) {
         passwd pass = getpasswd(newUser);
         if (!verifyPassword(pass)) {
             throw new Exception("incorrect password");
+        }
+
+        // Automatically use the shell the user prefers
+        // If such is specified in their user entry
+        // and if the user didn't specify a shell to use
+        // Otherwise the default shell will be used
+        string shell = cast(string)pass.pw_shell.fromStringz;
+        if (shell.length != 0 && useShell.length == 0) {
+            useShell = shell;
+        } else if (useShell.length == 0) {
+            useShell = DEFAULT_SHELL;
+        }
+
+        if (!isShellAllowed(useShell)) {
+            throw new Exception("shell %s not allowed".format(useShell));
         }
 
         // We're done logging in
@@ -200,9 +230,9 @@ void changeEnv(ref passwd pass, string shell) {
         environment["SHELL"] = shell;
         environment["USER"] = cast(string)pass.pw_name.fromStringz;
         environment["LOGNAME"] = cast(string)pass.pw_name.fromStringz;
-        
-        // TODO: set path
-        //environment["PATH"] = cast(string)pass.pw_dir.fromStringz;
+        environment["PATH"] = pass.pw_uid == 0 ? 
+            DEFAULT_ROOT_LOGIN_PATH : 
+            DEFAULT_LOGIN_PATH;
     }
 
     if (!preserveEnvironment) {
@@ -280,6 +310,32 @@ version(USE_SHADOW) {
         else
             return cast(string)expected.pw_passwd.fromStringz;
     }
+}
+
+/**
+    Parses /etc/shells to try to find if a shell is allowed
+*/
+bool isShellAllowed(string shell) {
+    import std.file : readText;
+    
+    // Make sure that /etc/shells exists
+    if (!exists("/etc/shells")) {
+        return DEFAULT_NO_SHELLS_RET_VAL;
+    }
+
+    string shellsInfo = readText("/etc/shells");
+    foreach(line; shellsInfo.split("\n")) {
+
+        // Skip empty lines
+        if (line.strip.length == 0) continue;
+
+        // Skip comments
+        if (line.stripLeft()[0] == '#') continue;
+
+        // Match shells
+        if (line == shell) return true;
+    }
+    return false;
 }
 
 /**
