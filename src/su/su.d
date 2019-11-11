@@ -78,9 +78,6 @@ enum SU_VERSION = "su from dcore 1.0";
 /// Wether to do a fast startup
 bool fastStartup = false;
 
-/// Wether to simulate a login
-bool simulateLogin = false;
-
 /// Wether to preserve the environment
 bool preserveEnvironment = false;
 
@@ -146,9 +143,6 @@ int main(string[] args) {
             throw new Exception("shell %s not allowed".format(useShell));
         }
 
-        // We're done logging in
-        if (simulateLogin) return 0;
-
         // Change identity and environment to match new user
         changeEnv(pass, useShell);
         changeIdentity(pass);
@@ -203,10 +197,11 @@ bool verifyPassword(ref passwd expected) {
     Executes a shell
 */
 void runShell(string shell, string command) {
-    string cmdStr = command.length != 0 ? command : shell;
-    
-    if (fastStartup && command.length == 0) cmdStr ~= " -f";
-    auto pid = spawnShell(cmdStr);
+    string[] args;
+    if (loginShell) args ~= "-l";
+    if (fastStartup) args ~= "-f";
+    if (command.length != 0) args ~= ["-c", command];
+    auto pid = spawnProcess([shell] ~ args);
     wait(pid);
 }
 
@@ -214,7 +209,7 @@ void runShell(string shell, string command) {
     Changes the environment settings
 */
 void changeEnv(ref passwd pass, string shell) {
-    if (simulateLogin) {
+    if (loginShell) {
         string term = environment["TERM"];
         
         // Clear environment
